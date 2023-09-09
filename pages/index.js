@@ -3,6 +3,7 @@ import Head from "next/head";
 import Banner from "../components/banner/banner";
 import AboutMe from "../components/aboutMe/aboutMe";
 import Plans from "../components/plans/plans";
+import Testimonial from "../components/testimonial/testimonial";
 
 function HomePage(props) {
   return (
@@ -13,6 +14,7 @@ function HomePage(props) {
       <Banner />
       <AboutMe />
       <Plans />
+      <Testimonial />
     </Fragment>
   );
 }
