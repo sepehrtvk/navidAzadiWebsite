@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto&family=Source+Sans+Pro:wght@300&display=swap');
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 * {
   box-sizing: border-box;
@@ -44,21 +44,23 @@ body {
 
   margin: 0;
   background-color: var(--color-grey-500);
-  color: #252525;
-  font-family: 'Roboto', sans-serif;
+  color: #f6f1f1;
 }
 
-h1,
-h2,
-h3 {
-  font-family: 'Oswald', 'Roboto', sans-serif;
+@font-face {
+  font-family: "Shabnam";
+  src: url("../public/assets/fonts/Shabnam-FD.ttf") format("truetype");
+}
+@font-face {
+  font-family: "ShabnamBold";
+  src: url("../public/assets/fonts/Shabnam-Bold-FD.ttf") format("truetype");
+}
+@font-face {
+  font-family: "ShabnamLight";
+  src: url("../public/assets/fonts/Shabnam-Light-FD.ttf") format("truetype");
 }
 
-a {
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
+html,
+body {
+  font-family: "Shabnam", system-ui, sans-serif;
 }

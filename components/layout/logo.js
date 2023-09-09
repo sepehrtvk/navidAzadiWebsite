@@ -1,7 +1,8 @@
-import classes from './logo.module.css';
+import logo from "../../public/assets/logo.png";
+import Image from "next/image";
 
 function Logo() {
-  return <div className={classes.logo}>Max' Next Blog</div>;
+  return <Image src={logo} width={100} />;
 }
 
 export default Logo;
