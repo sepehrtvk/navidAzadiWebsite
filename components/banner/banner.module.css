@@ -33,3 +33,17 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+@media screen and (max-width: 480px) {
+  .banner {
+    padding: 3rem;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+  }
+  .getPlan {
+    bottom: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

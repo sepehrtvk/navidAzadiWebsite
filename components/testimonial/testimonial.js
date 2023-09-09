@@ -6,7 +6,7 @@ import Section from "../UI/section/section";
 
 const Testimonial = () => {
   return (
-    <div className='py-5 text-center'>
+    <div className='py-5 text-center' id='trainers'>
       <Section title={"شاگردان"} />
       <div className='container mt-5 mb-5'>
         <div className='row '>

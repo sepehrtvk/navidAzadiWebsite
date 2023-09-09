@@ -22,7 +22,7 @@ const AboutMe = () => {
     );
   };
   return (
-    <div className='my-5 py-5 text-center'>
+    <div className='my-5 py-5 text-center' id='aboutMe'>
       <Section title={"درباره من"} />
       <div className='container mt-5 '>
         <div className='row pt-5 justify-content-around align-items-center'>

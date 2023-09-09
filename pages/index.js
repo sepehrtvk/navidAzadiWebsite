@@ -4,6 +4,7 @@ import Banner from "../components/banner/banner";
 import AboutMe from "../components/aboutMe/aboutMe";
 import Plans from "../components/plans/plans";
 import Testimonial from "../components/testimonial/testimonial";
+import CommingSoon from "../components/commingSoon/commingSoon";
 
 function HomePage(props) {
   return (
@@ -15,6 +16,7 @@ function HomePage(props) {
       <AboutMe />
       <Plans />
       <Testimonial />
+      <CommingSoon />
     </Fragment>
   );
 }

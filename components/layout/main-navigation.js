@@ -7,7 +7,7 @@ import Nav from "react-bootstrap/Nav";
 function MainNavigation() {
   return (
     <header>
-      <Navbar expand='lg' bg='dark'>
+      <Navbar expand='lg'>
         <Container>
           <Navbar.Brand>
             <Logo />
@@ -17,19 +17,22 @@ function MainNavigation() {
             className='justify-content-between'
             id='basic-navbar-nav'>
             <Nav>
-              <Nav.Link href='#home' className='text-white ms-3'>
+              <Nav.Link href='#home' className=' ms-3'>
                 صفحه اصلی
               </Nav.Link>
-              <Nav.Link href='#plans' className='text-white ms-3'>
+              <Nav.Link href='#plans' className=' ms-3'>
                 پلن ها
               </Nav.Link>
-              <Nav.Link href='#link' className='text-white ms-3'>
+              <Nav.Link href='#trainers' className=' ms-3'>
+                شاگردان
+              </Nav.Link>
+              <Nav.Link href='#aboutMe' className=' ms-3'>
                 درباره من
               </Nav.Link>
             </Nav>
             <div className='d-flex align-items-center'>
               <button className='btn btn-primary ms-4'>ورود / ثبت نام</button>
-              <div className='text-white border-end pe-4'>
+              <div className=' border-end pe-4'>
                 <p className='mb-1'>پشتیبانی:</p>
                 <span className=''>09120532121</span>
               </div>
