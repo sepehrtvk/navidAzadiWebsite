@@ -1,17 +1,18 @@
 import { Fragment } from "react";
 import Head from "next/head";
+import Banner from "../components/banner/banner";
+import AboutMe from "../components/aboutMe/aboutMe";
+import Plans from "../components/plans/plans";
 
 function HomePage(props) {
   return (
     <Fragment>
       <Head>
-        <title>Max' Blog</title>
-        <meta
-          name='description'
-          content='I post about programming and web development.'
-        />
+        <title>نوید آزادی | مربی بدنسازی و فیتنس</title>
       </Head>
-      <h4>ff</h4>
+      <Banner />
+      <AboutMe />
+      <Plans />
     </Fragment>
   );
 }

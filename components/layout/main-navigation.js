@@ -20,7 +20,7 @@ function MainNavigation() {
               <Nav.Link href='#home' className='text-white ms-3'>
                 صفحه اصلی
               </Nav.Link>
-              <Nav.Link href='#link' className='text-white ms-3'>
+              <Nav.Link href='#plans' className='text-white ms-3'>
                 پلن ها
               </Nav.Link>
               <Nav.Link href='#link' className='text-white ms-3'>
