@@ -1,0 +1,8 @@
+export { default as buttonLoading } from './buttonLoading.json'
+export { default as LoadingLottie } from './loading.json'
+export { default as SuccessLottie } from './success.json'
+export { default as WarningLottie } from './warning.json'
+export { default as HourglassLottie } from './hourglass.json'
+export { default as PendingLottie } from './pending.json'
+export { default as PaperLottie } from './paper.json'
+export { default as FaceScanLottie } from './faceScan.json'

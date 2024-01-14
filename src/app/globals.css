@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'IRANSansX';
+  src: local('IRANSansX'), url('/fonts/IRANSansX/IRANSansXVF?#iefix') format('embedded-opentype'),
+    url('/fonts/IRANSansX/IRANSansXV.woff') format('woff'),
+    url('/fonts/IRANSansX/IRANSansXVF.ttf') format('truetype');
+  letter-spacing: 0px;
+  font-style: normal;
+}
+
+body {
+  height: 100%;
+  font-family: IRANSansX;
+  -moz-font-feature-settings: 'ss04';
+  -webkit-font-feature-settings: 'ss04';
+  font-feature-settings: 'ss04';
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding-right: 20px;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  /* border: 0; */
+}
+
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}

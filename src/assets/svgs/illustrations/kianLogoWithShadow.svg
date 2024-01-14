@@ -1,0 +1,26 @@
+<svg width="100" height="120" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_4237_30298)">
+<path d="M79.2671 90H56.4331C44.097 90 34.5013 57.659 20.7305 49.9957C28.8228 45.4924 35.4806 32.4561 42.0954 22.4852C47.0092 15.0716 51.0039 10 60.6511 10H79.2671C63.4603 14.0125 52.6361 43.7617 45.7636 49.9957C52.6189 56.2297 63.4689 85.9875 79.2671 90Z" fill="url(#paint0_linear_4237_30298)"/>
+<path d="M45.7979 50.0325C49.2342 53.1467 53.624 62.1364 59.165 70.8508C64.7059 79.5652 71.3637 87.9958 79.2671 90.0002H56.4331C50.2651 90.0002 44.7842 81.9223 39.123 72.8896C33.4618 63.8569 27.6202 53.8607 20.7305 50.0325C21.2479 49.7469 21.7497 49.4339 22.2338 49.0949C29.3801 44.0194 39.0429 44.3973 45.7722 50.0153L45.7979 50.0325Z" fill="url(#paint1_radial_4237_30298)"/>
+</g>
+<defs>
+<filter id="filter0_d_4237_30298" x="0.730469" y="0" width="98.5352" height="120" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="10"/>
+<feGaussianBlur stdDeviation="10"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.639 0 0 0 0 0.79038 0 0 0 0 0.9 0 0 0 0.9 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_4237_30298"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4237_30298" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_4237_30298" x1="60.8039" y1="33.3" x2="36.7306" y2="77.0872" gradientUnits="userSpaceOnUse">
+<stop stop-color="#409EDC"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<radialGradient id="paint1_radial_4237_30298" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(50.8314 80.761) scale(41.5701 41.5105)">
+<stop offset="0.19" stop-color="#0F367B"/>
+<stop offset="0.91" stop-color="#1D71B8"/>
+</radialGradient>
+</defs>
+</svg>
