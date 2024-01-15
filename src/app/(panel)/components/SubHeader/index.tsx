@@ -9,11 +9,11 @@ import useStore from '@store/storeManagement/useStore'
 import useInvestorStore from '@store/investor'
 import SubHeaderProps from './type'
 
-const { kian_funds, print_assets } = staticTexts.header
+// const { kian_funds, print_assets } = staticTexts.header
 
 function SubHeader({
   title,
-  backButtonTitle = kian_funds,
+  backButtonTitle = 'fff',
   backButtonRoute,
   onPrintAssetsClick,
   showBackButton = false,
