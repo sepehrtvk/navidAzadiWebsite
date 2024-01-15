@@ -63,6 +63,10 @@ const staticTexts = {
       receivedPlanCount: 'تعداد برنامه دریافت شده',
     },
   },
+  footer: {
+    support: 'جهت ارتباط با پشتیبانی با شماره تلفن ۰۹۱۲۰۵۳۲۱۲۱ تماس بگیرید',
+    copy: 'تمامی حقوق این سایت نزد آقای نوید آزادی محفوظ است.',
+  },
 }
 
 export default staticTexts
