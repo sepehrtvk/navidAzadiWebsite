@@ -27,7 +27,7 @@ const plansArray = [
 ]
 
 function PlanChoose() {
-  const { choosePlan, signPlan } = staticTexts.userPanel.planChoose
+  const { choosePlan, noPlan, signPlan } = staticTexts.userPanel.planChoose
   const { toman } = staticTexts.common
 
   return (
@@ -36,6 +36,9 @@ function PlanChoose() {
         <div className="flex gap-4 items-center">
           <div className="text-h5 text-text">{choosePlan}</div>
         </div>
+      </div>
+      <div className="mb-4">
+        <div className="text-error-dark">{noPlan}:</div>
       </div>
       <div className="grid grid-cols-3 gap-4">
         {plansArray.map(item => {

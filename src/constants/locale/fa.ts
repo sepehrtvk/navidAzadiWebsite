@@ -51,6 +51,7 @@ const staticTexts = {
     trainer: 'مربی',
     planChoose: {
       choosePlan: 'انتخاب پکیج',
+      noPlan: 'شما هیچ پکیج فعالی ندارید! لطفا یکی از پکیج های زیر را انتخاب کنید',
       signPlan: 'ثبت نام',
     },
     activePlan: {
