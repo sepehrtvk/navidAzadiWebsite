@@ -9,18 +9,22 @@ import { KButton, KInput } from 'src/kd-components'
 import useApi from '@utils/api/useApi'
 import { GET_LOGIN_URL } from '@constants/apis/loginManagment/login'
 
-const { alvand_system, kian_customer_panel, forgot_password, login, password, user_name } =
-  staticTexts.login
+const { alvand_system, kian_customer_panel, signup, password, user_name, first_name, last_name } =
+  staticTexts.signup
 
 function LoginPage() {
   const { fetch: getLogin, loading: loginLoading } = useApi({ url: GET_LOGIN_URL, lazy: true })
 
   const formik = useFormik({
     initialValues: {
+      firstName: '',
+      lastName: '',
       username: '',
       password: '',
     },
     validationSchema: Yup.object({
+      firstName: Yup.string().required(),
+      lastName: Yup.string().required(),
       username: Yup.string().required(),
       password: Yup.string().required(),
     }),
@@ -29,9 +33,6 @@ function LoginPage() {
     },
   })
 
-  const handleForgotPassword = () => {
-    console.log('Forgot Password')
-  }
   return (
     <div className="grow flex items-center justify-center">
       <div className="w-[564px] rounded-xl bg-background-surface py-10 flex flex-col items-center">
@@ -39,6 +40,38 @@ function LoginPage() {
         <div className="text-text text-h5">{alvand_system}</div>
         <div className="text-text text-medium15 mt-1">{kian_customer_panel}</div>
         <form className="mt-10 flex flex-col items-center w-full" onSubmit={formik.handleSubmit}>
+          <div className="flex justify-center items-center w-full mb-4">
+            <div className="ml-4">
+              <KInput
+                autoFocus
+                id="firstName"
+                name="firstName"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.firstName}
+                error={
+                  (formik.touched.firstName && !!formik.errors.firstName) || formik.submitCount > 0
+                }
+                label={first_name}
+                width={200}
+                direction="ltr"
+              />
+            </div>
+            <KInput
+              autoFocus
+              id="lastName"
+              name="lastName"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.lastName}
+              error={
+                (formik.touched.lastName && !!formik.errors.lastName) || formik.submitCount > 0
+              }
+              label={last_name}
+              width={200}
+              direction="ltr"
+            />
+          </div>
           <KInput
             autoFocus
             id="username"
@@ -66,20 +99,12 @@ function LoginPage() {
             type="password"
             direction="ltr"
           />
-          <div className="mt-4 flex justify-end w-[400px]">
-            <div
-              role="presentation"
-              onClick={handleForgotPassword}
-              className="text-text-middle text-medium11 text-left cursor-pointer"
-            >
-              {forgot_password}
-            </div>
-          </div>
+
           <KButton
             disabled={!formik.isValid && formik.touched.username && formik.touched.password}
             htmlType="submit"
             className="!mt-6"
-            text={login}
+            text={signup}
             width={400}
             loading={loginLoading}
           />
