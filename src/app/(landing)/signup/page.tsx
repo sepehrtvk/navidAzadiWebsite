@@ -53,7 +53,7 @@ function LoginPage() {
                   (formik.touched.firstName && !!formik.errors.firstName) || formik.submitCount > 0
                 }
                 label={first_name}
-                width={200}
+                width={192}
                 direction="ltr"
               />
             </div>
@@ -68,7 +68,7 @@ function LoginPage() {
                 (formik.touched.lastName && !!formik.errors.lastName) || formik.submitCount > 0
               }
               label={last_name}
-              width={200}
+              width={192}
               direction="ltr"
             />
           </div>
