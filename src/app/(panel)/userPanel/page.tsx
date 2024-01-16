@@ -6,6 +6,7 @@ import PlanChoose from './components/PlanChoose'
 import ActivePlan from './components/ActivePlan'
 import Plans from './components/Plans'
 import GoogleMeetReserve from './components/GoogleMeetReserve'
+import VisitReserveReserve from './components/VisitReserve'
 
 const userPanelPage = () => {
   return (
@@ -15,6 +16,7 @@ const userPanelPage = () => {
       <ActivePlan />
       <Plans />
       <GoogleMeetReserve />
+      <VisitReserveReserve />
     </div>
   )
 }

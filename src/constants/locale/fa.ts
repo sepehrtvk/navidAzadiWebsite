@@ -77,6 +77,13 @@ const staticTexts = {
       googleMeetLink: 'لینک گوگل میت',
       choose: 'انتخاب',
     },
+    visitReserveReserve: {
+      visitReserve: 'وقت ویزیت حضوری',
+      noVisitTime: 'هیچ تایمی انتخاب نشده است، لطفا یکی را انتخاب نمایید',
+      date: 'روز',
+      time: 'زمان',
+      choose: 'انتخاب',
+    },
   },
   footer: {
     support: 'جهت ارتباط با پشتیبانی با شماره تلفن ۰۹۱۲۰۵۳۲۱۲۱ تماس بگیرید',
