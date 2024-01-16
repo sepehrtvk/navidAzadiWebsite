@@ -62,6 +62,13 @@ const staticTexts = {
       planCount: 'تعداد برنامه',
       receivedPlanCount: 'تعداد برنامه دریافت شده',
     },
+    plans: {
+      plans: 'برنامه ها',
+      your_plans: 'برنامه های شما به شرح زیر است',
+      download_plan: 'دانلود',
+      from: 'از',
+      to: 'تا',
+    },
   },
   footer: {
     support: 'جهت ارتباط با پشتیبانی با شماره تلفن ۰۹۱۲۰۵۳۲۱۲۱ تماس بگیرید',
