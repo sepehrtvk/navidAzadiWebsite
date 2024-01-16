@@ -69,6 +69,14 @@ const staticTexts = {
       from: 'از',
       to: 'تا',
     },
+    googleMeetReserve: {
+      googleMeetReserve: 'وقت تماس تصویری',
+      noGoogleMeetTime: 'هیچ تایمی انتخاب نشده است، لطفا یکی را انتخاب نمایید',
+      date: 'روز',
+      time: 'زمان',
+      googleMeetLink: 'لینک گوگل میت',
+      choose: 'انتخاب',
+    },
   },
   footer: {
     support: 'جهت ارتباط با پشتیبانی با شماره تلفن ۰۹۱۲۰۵۳۲۱۲۱ تماس بگیرید',
