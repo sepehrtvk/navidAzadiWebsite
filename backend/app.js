@@ -1,98 +1,72 @@
-const fs = require('fs')
-const path = require('path')
+const path = require("path");
 
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const dotenv = require("dotenv");
 
-const Goal = require('./models/goal')
+const app = express();
 
-const app = express()
+dotenv.config({ path: "./config.env" });
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'access.log'), {
-  flags: 'a',
-})
+// app.use(morgan('combined', { stream: accessLogStream }))
 
-app.use(morgan('combined', { stream: accessLogStream }))
+// app.use(bodyParser.json());
 
-app.use(bodyParser.json())
+const userRouter = require("./routes/userRoutes");
+// const carRouter = require("./routes/carRoutes");
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  next()
-})
+// MIDDLEWARES
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
-app.get('/goals', async (req, res) => {
-  console.log('TRYING TO FETCH GOALS')
-  try {
-    const goals = await Goal.find()
-    res.status(200).json({
-      goals: goals.map(goal => ({
-        id: goal.id,
-        text: goal.text,
-      })),
-    })
-    console.log('FETCHED GOALS')
-  } catch (err) {
-    console.error('ERROR FETCHING GOALS')
-    console.error(err.message)
-    res.status(500).json({ message: 'Failed to load goals.' })
-  }
-})
+app.use(express.json());
+app.use(express.static(`${__dirname}/public`));
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
-app.post('/goals', async (req, res) => {
-  console.log('TRYING TO STORE GOAL')
-  const goalText = req.body.text
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST,OPTIONS, PUT, PATCH, DELETE"
+  );
 
-  if (!goalText || goalText.trim().length === 0) {
-    console.log('INVALID INPUT - NO TEXT')
-    return res.status(422).json({ message: 'Invalid goal text.' })
-  }
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
 
-  const goal = new Goal({
-    text: goalText,
-  })
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
 
-  try {
-    await goal.save()
-    res.status(201).json({ message: 'Goal saved', goal: { id: goal.id, text: goalText } })
-    console.log('STORED NEW GOAL')
-  } catch (err) {
-    console.error('ERROR FETCHING GOALS')
-    console.error(err.message)
-    res.status(500).json({ message: 'Failed to save goal.' })
-  }
-})
+  // Pass to next layer of middleware
+  next();
+});
 
-app.delete('/goals/:id', async (req, res) => {
-  console.log('TRYING TO DELETE GOAL')
-  try {
-    await Goal.deleteOne({ _id: req.params.id })
-    res.status(200).json({ message: 'Deleted goal!' })
-    console.log('DELETED GOAL')
-  } catch (err) {
-    console.error('ERROR FETCHING GOALS')
-    console.error(err.message)
-    res.status(500).json({ message: 'Failed to delete goal.' })
-  }
-})
+// ROUTES
+app.use("/api/v1/users", userRouter);
+// app.use("/api/v1/cars", carRouter);
 
 mongoose.connect(
-  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
+  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/navidazadidb?authSource=admin`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   },
-  err => {
+  (err) => {
     if (err) {
-      console.error('FAILED TO CONNECT TO MONGODB')
-      console.error(err)
+      console.error("FAILED TO CONNECT TO MONGODB");
+      console.error(err);
     } else {
-      console.log('CONNECTED TO MONGODB!!')
-      app.listen(80)
+      const port = process.env.PORT || 5000;
+      console.log("CONNECTED TO MONGODB!!" + port);
+
+      app.listen(port);
     }
-  },
-)
+  }
+);

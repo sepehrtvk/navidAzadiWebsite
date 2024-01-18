@@ -4,7 +4,7 @@ import useInvestorStore from '@store/investor'
 import useAggregatedStore from '@store/aggregated'
 
 export const client = axios.create({
-  baseURL: '/api/',
+  baseURL: 'http://localhost:5500/api/v1',
   timeoutErrorMessage: 'TIMEOUT_ERROR',
   timeout: 60000,
 })
