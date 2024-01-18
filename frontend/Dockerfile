@@ -7,12 +7,10 @@ COPY package.json .
 RUN yarn install
 
 COPY . .
+COPY public /usr/src/app/public
 
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Set appropriate permissions
+RUN chown -R node:node /usr/src/app/public
 
 EXPOSE 3000
 
