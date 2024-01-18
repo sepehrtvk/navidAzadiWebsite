@@ -1,98 +1,74 @@
-const fs = require('fs')
-const path = require('path')
+const express = require('express');
+const morgan = require('morgan');
 
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const app = express();
 
-const Goal = require('./models/goal')
 
-const app = express()
+dotenv.config({ path: './config.env' });
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs', 'access.log'), {
-  flags: 'a',
-})
+const db = process.env.DATABASE.replace(
+  '<password>',
+  process.env.DATABASE_PASSWORD
+);
 
-app.use(morgan('combined', { stream: accessLogStream }))
+mongoose
+  .connect(db)
+  .then(() => console.log('succesfull'))
+  .catch((err) => console.log(err)); 
 
-app.use(bodyParser.json())
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  next()
-})
 
-app.get('/goals', async (req, res) => {
-  console.log('TRYING TO FETCH GOALS')
-  try {
-    const goals = await Goal.find()
-    res.status(200).json({
-      goals: goals.map(goal => ({
-        id: goal.id,
-        text: goal.text,
-      })),
-    })
-    console.log('FETCHED GOALS')
-  } catch (err) {
-    console.error('ERROR FETCHING GOALS')
-    console.error(err.message)
-    res.status(500).json({ message: 'Failed to load goals.' })
-  }
-})
 
-app.post('/goals', async (req, res) => {
-  console.log('TRYING TO STORE GOAL')
-  const goalText = req.body.text
+const userRouter = require('./routes/userRoutes');
+const carRouter = require('./routes/carRoutes');
+const requestRouter = require('./routes/requestRoutes');
+const supportRouter = require('./routes/supportRoute');
 
-  if (!goalText || goalText.trim().length === 0) {
-    console.log('INVALID INPUT - NO TEXT')
-    return res.status(422).json({ message: 'Invalid goal text.' })
-  }
 
-  const goal = new Goal({
-    text: goalText,
-  })
 
-  try {
-    await goal.save()
-    res.status(201).json({ message: 'Goal saved', goal: { id: goal.id, text: goalText } })
-    console.log('STORED NEW GOAL')
-  } catch (err) {
-    console.error('ERROR FETCHING GOALS')
-    console.error(err.message)
-    res.status(500).json({ message: 'Failed to save goal.' })
-  }
-})
+// MIDDLEWARES
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev')); 
+}
 
-app.delete('/goals/:id', async (req, res) => {
-  console.log('TRYING TO DELETE GOAL')
-  try {
-    await Goal.deleteOne({ _id: req.params.id })
-    res.status(200).json({ message: 'Deleted goal!' })
-    console.log('DELETED GOAL')
-  } catch (err) {
-    console.error('ERROR FETCHING GOALS')
-    console.error(err.message)
-    res.status(500).json({ message: 'Failed to delete goal.' })
-  }
-})
+app.use(express.json());
+app.use(express.static(`${__dirname}/public`));
+app.use(function (req, res, next) {
 
-mongoose.connect(
-  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  err => {
-    if (err) {
-      console.error('FAILED TO CONNECT TO MONGODB')
-      console.error(err)
-    } else {
-      console.log('CONNECTED TO MONGODB!!')
-      app.listen(80)
-    }
-  },
-)
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST,OPTIONS, PUT, PATCH, DELETE');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
+
+
+// ROUTES
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/cars', carRouter);
+app.use('/api/v1/requests', requestRouter);
+app.use('/api/v1/support', supportRouter);
+
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
+
+
+
+module.exports = app;

@@ -1,21 +1,20 @@
 {
-  "name": "backend",
+  "name": "carrentsystem",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "backend for car rent system project",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-  "author": "Maximilian Schwarzmüller / Academind GmbH",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.10.3",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.15",
+    "validator": "^13.7.0"
   }
 }
