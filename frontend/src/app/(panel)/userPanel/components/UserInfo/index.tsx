@@ -1,7 +1,12 @@
+'use client'
+
 import staticTexts from '@constants/locale/fa'
+import useProfileStore from '@store/profile'
+import useStore from '@store/storeManagement/useStore'
 
 function UserInfo() {
   const { userInfo, firstName, lastName, mobile, trainer } = staticTexts.userPanel
+  const profile = useStore(useProfileStore, store => store.profile)
 
   return (
     <div className="px-4 py-3 rounded-xl w-full bg-background-surface">
@@ -13,15 +18,15 @@ function UserInfo() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <span className="text-bold15">{firstName}: </span>
-          <span className="text-medium15 text-text-dark">سپهر</span>
+          <span className="text-medium15 text-text-dark">{profile?.firstName}</span>
         </div>
         <div>
           <span className="text-bold15">{mobile}: </span>
-          <span className="text-medium15 text-text-dark">{'09120532128'}</span>
+          <span className="text-medium15 text-text-dark">{profile?.phone}</span>
         </div>
         <div>
           <span className="text-bold15">{lastName}: </span>
-          <span className="text-medium15 text-text-dark">توکلی</span>
+          <span className="text-medium15 text-text-dark">{profile?.lastName}</span>
         </div>
         <div>
           <span className="text-bold15">{trainer}: </span>
