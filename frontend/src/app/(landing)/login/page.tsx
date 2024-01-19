@@ -8,24 +8,44 @@ import { KianLogoWithShadowSvg } from '@svgs/illustrations'
 import { KButton, KInput } from 'src/kd-components'
 import useApi from '@utils/api/useApi'
 import { GET_LOGIN_URL } from '@constants/apis/loginManagment/login'
+import useProfileStore from '@store/profile'
+import { enqueueSnackbar } from 'notistack'
+import { useRouter } from 'next/navigation'
+import { ADMINPANEL_ROUTE, USERPANEL_ROUTE } from '@constants/routes'
 
 const { alvand_system, kian_customer_panel, forgot_password, login, password, user_name } =
   staticTexts.login
 
 function LoginPage() {
-  const { fetch: getLogin, loading: loginLoading } = useApi({ url: GET_LOGIN_URL, lazy: true })
+  const router = useRouter()
+  const setProfile = useProfileStore(store => store.setProfile)
+
+  const { fetch: getLogin, loading: loginLoading } = useApi<any>({
+    url: GET_LOGIN_URL,
+    lazy: true,
+    method: 'post',
+    onSuccess(data) {
+      setProfile(data.data.user)
+      if (data.data.user.role === 'admin') router.push(ADMINPANEL_ROUTE)
+      else router.push(USERPANEL_ROUTE)
+    },
+    onError(error) {
+      enqueueSnackbar(error.data.message, { variant: 'error' })
+    },
+  })
 
   const formik = useFormik({
     initialValues: {
-      username: '',
+      phone: '',
       password: '',
     },
     validationSchema: Yup.object({
-      username: Yup.string().required(),
+      phone: Yup.string().required(),
       password: Yup.string().required(),
     }),
     onSubmit: data => {
-      getLogin({ queryParams: data })
+      console.log(data)
+      getLogin({ payload: data })
     },
   })
 
@@ -41,13 +61,13 @@ function LoginPage() {
         <form className="mt-10 flex flex-col items-center w-full" onSubmit={formik.handleSubmit}>
           <KInput
             autoFocus
-            id="username"
-            name="username"
+            id="phone"
+            name="phone"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.username}
-            error={(formik.touched.username && !!formik.errors.username) || formik.submitCount > 0}
-            // helperText={formik.touched.username && formik.errors.username}
+            value={formik.values.phone}
+            error={(formik.touched.phone && !!formik.errors.phone) || formik.submitCount > 0}
+            // helperText={formik.touched.phone && formik.errors.phone}
             label={user_name}
             width={400}
             direction="ltr"
@@ -76,7 +96,7 @@ function LoginPage() {
             </div>
           </div>
           <KButton
-            disabled={!formik.isValid && formik.touched.username && formik.touched.password}
+            disabled={!formik.isValid && formik.touched.phone && formik.touched.password}
             htmlType="submit"
             className="!mt-6"
             text={login}

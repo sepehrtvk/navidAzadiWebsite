@@ -1,20 +1,20 @@
-// import { OfficeDetailType } from '@apis/user/details'
-// import { create } from './../storeManagement/index'
-// import { createJSONStorage, persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { LoginDto } from '@constants/apis/auth'
+import { create } from '../storeManagement/index'
 
-// interface ProfileStore {
-//   data: Partial<OfficeDetailType>
-//   setData: (data: Partial<OfficeDetailType>) => void
-// }
+interface ProfileStore {
+  profile: LoginDto | null
+  setProfile: (profile: LoginDto) => void
+}
 
-// const useProfileStore = create<ProfileStore>()(
-//   persist(
-//     (set, get) => ({
-//       data: {},
-//       setData: data => set(state => ({ data })),
-//     }),
-//     { name: 'KD_OFFICE_ADMIN', storage: createJSONStorage(() => sessionStorage) },
-//   ),
-// )
+const useProfileStore = create<ProfileStore>()(
+  persist(
+    set => ({
+      profile: null,
+      setProfile: profile => set({ profile }),
+    }),
+    { name: 'KD_AP_PROFILE', storage: createJSONStorage(() => localStorage) },
+  ),
+)
 
-// export default useProfileStore
+export default useProfileStore
