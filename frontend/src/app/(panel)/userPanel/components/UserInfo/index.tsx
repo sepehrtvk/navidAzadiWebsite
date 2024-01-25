@@ -1,5 +1,6 @@
 'use client'
 
+import KSkeleton from '@components/KSkeleton'
 import staticTexts from '@constants/locale/fa'
 import useProfileStore from '@store/profile'
 import useStore from '@store/storeManagement/useStore'
@@ -8,6 +9,12 @@ function UserInfo() {
   const { userInfo, firstName, lastName, mobile, trainer } = staticTexts.userPanel
   const profile = useStore(useProfileStore, store => store.profile)
 
+  if (!profile)
+    return (
+      <div className="w-full my-6">
+        <KSkeleton className="rounded-xl" variant="rounded" height={180} width={'100%'} />
+      </div>
+    )
   return (
     <div className="px-4 py-3 rounded-xl w-full bg-background-surface">
       <div className="flex justify-between items-center mb-4 pb-2 border-0 border-b border-solid border-b-border-light">
