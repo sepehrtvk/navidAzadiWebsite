@@ -50,6 +50,10 @@ const registeredPlanSchema = new mongoose.Schema({
     unique: true,
     required: [true, "plan must belong to a user."],
   },
+  price: {
+    type: Number,
+    required: [true, "plan must have a price"],
+  },
 
   createdAt: { type: Date, default: Date.now() },
 });

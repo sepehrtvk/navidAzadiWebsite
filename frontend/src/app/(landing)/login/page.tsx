@@ -25,7 +25,7 @@ function LoginPage() {
     lazy: true,
     method: 'post',
     onSuccess(data) {
-      setProfile(data.data.user)
+      setProfile({ ...data.data.user, userId: data.data.user._id })
       if (data.data.user.role === 'admin') router.push(ADMINPANEL_ROUTE)
       else router.push(USERPANEL_ROUTE)
     },

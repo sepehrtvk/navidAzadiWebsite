@@ -52,10 +52,14 @@ const staticTexts = {
     planChoose: {
       choosePlan: 'انتخاب پکیج',
       noPlan: 'شما هیچ پکیج فعالی ندارید! لطفا یکی از پکیج های زیر را انتخاب کنید',
+      signPlan_one_year: 'ثبت نام یک‌ساله',
       signPlan: 'ثبت نام',
+      signPlan_six_month: 'ثبت نام شش‌ماهه',
       signInAlert: 'با کلیک روی دکمه تایید، درخواست فعال سازی پکیج انتخابی شما ارسال خواهد شد',
       confirm: 'تایید',
       cancel: 'انصراف',
+      one_year: 'یک‌ساله',
+      six_month: 'شش‌ماهه',
     },
     activePlan: {
       planActive: 'پکیج فعال',

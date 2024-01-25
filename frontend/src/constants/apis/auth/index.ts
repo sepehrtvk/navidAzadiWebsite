@@ -5,4 +5,5 @@ export interface LoginDto {
   token: string
   firstName: string
   lastName: string
+  userId: string
 }
