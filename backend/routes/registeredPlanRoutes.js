@@ -5,19 +5,18 @@ const registeredPlanController = require("../controllers/registeredPlanControlle
 const router = express.Router();
 
 router
-  .route("/")
+  .route("")
   // .get(carController.getAllCars)
   // .get(carController.getAllCars)
+  .get(registeredPlanController.getRegisteredPlan)
   .post(registeredPlanController.createRegisteredPlan);
 
-// router
-//   .route("/:id")
-//   .get(carController.getCar)
-//   .patch(carController.updateCar)
-//   .delete(
-//     authController.protect,
-//     authController.restrictTo("admin"),
-//     carController.deleteCar
-//   );
+// router.route("/:id").get(registeredPlanController.getRegisteredPlan);
+// .patch(carController.updateCar)
+// .delete(
+//   authController.protect,
+//   authController.restrictTo("admin"),
+//   carController.deleteCar
+// );
 
 module.exports = router;

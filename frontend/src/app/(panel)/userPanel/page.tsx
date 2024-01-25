@@ -13,10 +13,10 @@ const userPanelPage = () => {
     <div className="w-full">
       <UserInfo />
       <PlanChoose />
-      <ActivePlan />
+      {/* <ActivePlan />
       <Plans />
       <GoogleMeetReserve />
-      <VisitReserveReserve />
+      <VisitReserveReserve /> */}
     </div>
   )
 }

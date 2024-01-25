@@ -4,12 +4,14 @@ import staticTexts from '@constants/locale/fa'
 import numberWithCommas from '@utils/numberWithCommas'
 import { CheckIcon, CloseIcon } from '@svgs/icons'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useApi from '@utils/api/useApi'
 import { NewPlanDTO, POST_NEWPLAN_URL } from '@constants/apis/newPlan'
 import { enqueueSnackbar } from 'notistack'
 import useStore from '@store/storeManagement/useStore'
 import useProfileStore from '@store/profile'
+import KSkeleton from '@components/KSkeleton'
+import NotActivePlan from '../NotActivePlan'
 
 const plansArray = [
   {
@@ -59,6 +61,12 @@ function PlanChoose() {
   const [selectedPlan, setSelectedPlan] = useState<NewPlanDTO | null>(null)
   const profile = useStore(useProfileStore, store => store.profile)
 
+  const { loading: planLoading, data: registeredPlanData } = useApi<any>({
+    url: POST_NEWPLAN_URL,
+    callCondition: profile !== undefined,
+    queryParams: { userId: profile?.userId },
+  })
+
   const { loading, fetch: submitNewPlan } = useApi<NewPlanDTO>({
     url: POST_NEWPLAN_URL,
     lazy: true,
@@ -73,6 +81,22 @@ function PlanChoose() {
       }
     },
   })
+
+  if (!profile || planLoading)
+    return (
+      <div className="w-full my-6">
+        <KSkeleton className="rounded-xl" variant="rounded" height={180} width={'100%'} />
+      </div>
+    )
+
+  if (registeredPlanData && !registeredPlanData.data.registeredPlan.active)
+    return (
+      <NotActivePlan
+        type={registeredPlanData.data.registeredPlan.type}
+        timeslot={registeredPlanData.data.registeredPlan.timeslot}
+        price={registeredPlanData.data.registeredPlan.price}
+      />
+    )
 
   return (
     <>

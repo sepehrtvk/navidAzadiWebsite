@@ -26,26 +26,34 @@ const RegisteredPlan = require("../models/registeredPlanModel");
 //   }
 // };
 
-// exports.getCar = async (req, res) => {
-//   const id = req.params.id;
+exports.getRegisteredPlan = async (req, res) => {
+  const id = req.query.userId;
 
-//   try {
-//     const car = await Car.findById(id);
+  try {
+    const registeredPlan = await RegisteredPlan.findOne({ userId: id });
 
-//     res.status(200).json({
-//       status: "success",
-//       results: car.length,
-//       data: {
-//         car,
-//       },
-//     });
-//   } catch (err) {
-//     res.status(404).json({
-//       status: "failed",
-//       error: err,
-//     });
-//   }
-// };
+    if (registeredPlan)
+      res.status(200).json({
+        status: "success",
+        data: {
+          registeredPlan,
+        },
+      });
+    else
+      res.status(404).json({
+        status: "success",
+        data: {
+          message: "user has no active plan",
+        },
+      });
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: "user has no active plan",
+      // error: err
+    });
+  }
+};
 
 exports.createRegisteredPlan = async (req, res) => {
   try {
