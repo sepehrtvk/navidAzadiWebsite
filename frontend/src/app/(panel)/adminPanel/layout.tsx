@@ -76,10 +76,10 @@ export default function LoginLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-row-reverse overflow-scroll">
-      <div className="flex flex-grow pb-8 shrink-0 pt-[72px] bg-background-surface flex-col items-center h-screen overflow-y-scroll">
-        <div className="flex flex-grow min-w-[1100px]">{children}</div>
+      <div className="flex flex-grow p-8 shrink-0 bg-background-surface flex-col items-center h-screen overflow-y-scroll rounded-xl">
+        <div className="flex flex-grow min-w-[1240px] ">{children}</div>
       </div>
-      <div className="shrink-0 p-6 bg-background w-[240px] flex flex-col gap-10 h-screen overflow-y-scroll border-0 border-l border-l-border-mid border-solid no-scrollbar">
+      <div className="shrink-0 p-6 bg-background w-[240px] flex flex-col gap-10 h-screen overflow-y-scroll no-scrollbar">
         <div className="flex gap-2 items-center ">
           <div className="flex flex-col ">
             <div className="text-text text-h6">{title}</div>

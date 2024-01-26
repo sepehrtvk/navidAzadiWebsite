@@ -1,30 +1,38 @@
 const RegisteredPlan = require("../models/registeredPlanModel");
+const User = require("../models/userModel");
 
-// exports.getAllCars = async (req, res) => {
-//   try {
-//     let allCars;
-//     if (req.query.sort) {
-//       const sortBy = req.query.sort.split(",").join(" ");
-//       allCars = await Car.find().sort(sortBy);
-//     } else {
-//       allCars = await Car.find();
-//     }
-//     // const allCars = await Car.find();
+exports.getRegisteredPlanAll = async (req, res) => {
+  try {
+    // const allPlans = await RegisteredPlan.find().sort("createdAt");
 
-//     res.status(200).json({
-//       status: "success",
-//       results: allCars.length,
-//       data: {
-//         cars: allCars,
-//       },
-//     });
-//   } catch (err) {
-//     res.status(404).json({
-//       status: "failed",
-//       error: err,
-//     });
-//   }
-// };
+    const allPlans = await RegisteredPlan.aggregate([
+      {
+        $lookup: {
+          from: "users", // collection name in db
+          localField: "userId",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+    ])
+      .sort("createdAt")
+      .exec();
+
+    res.status(200).json({
+      status: "success",
+      results: allPlans.length,
+      data: {
+        allPlans,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({
+      status: "failed",
+      error: err,
+    });
+  }
+};
 
 exports.getRegisteredPlan = async (req, res) => {
   const id = req.query.userId;
@@ -73,26 +81,37 @@ exports.createRegisteredPlan = async (req, res) => {
   }
 };
 
-// exports.updateCar = async (req, res) => {
-//   try {
-//     const newCar = await Car.findByIdAndUpdate(req.params.id, req.body, {
-//       new: true,
-//       runValidators: true,
-//     });
+exports.updateRegisteredPlan = async (req, res) => {
+  const date = new Date();
+  try {
+    const newRegisteredPlan = await RegisteredPlan.findByIdAndUpdate(
+      { _id: req.query.id },
+      {
+        startDate: new Date(),
+        endDate: new Date(
+          date.setMonth(
+            date.getMonth() + (req.query.timeslot == "6month" ? 6 : 12)
+          )
+        ),
+        active: true,
+        totalPlan: 0,
+        receivedPlan: 0,
+      }
+    );
 
-//     res.status(200).json({
-//       status: "success",
-//       data: {
-//         car: newCar,
-//       },
-//     });
-//   } catch (err) {
-//     res.status(404).json({
-//       status: "failed",
-//       message: err,
-//     });
-//   }
-// };
+    res.status(200).json({
+      status: "success",
+      data: {
+        RegisteredPlan: newRegisteredPlan,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: err,
+    });
+  }
+};
 
 // exports.deleteCar = async (req, res) => {
 //   try {

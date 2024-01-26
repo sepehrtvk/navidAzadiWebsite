@@ -17,8 +17,9 @@ import ChevronLeftIcon from './chevronLeft.svg'
 import ChevronRightIcon from './chevronRight.svg'
 import consts from './consts'
 import KTableProps from './type'
+import KButton from '@components/KButton'
 
-const { column, table_info } = consts
+const { column, table_info, edit, job } = consts
 
 function KTable({
   headers,
@@ -31,6 +32,7 @@ function KTable({
   totalElements,
   pageSize = 10,
   totalPages,
+  getSelectedRow,
 }: KTableProps) {
   const handleChange = (event: ChangeEvent<unknown>, value: number) => {
     if (hasPagination) {
@@ -52,7 +54,7 @@ function KTable({
               {headers.map((header, index) => (
                 <TableCell key={header}>
                   <div
-                    className={cs('text-text text-bold15 text-left', {
+                    className={cs('text-text text-bold15', {
                       'text-left': index === headers.length - 1,
                     })}
                   >
@@ -60,30 +62,51 @@ function KTable({
                   </div>
                 </TableCell>
               ))}
+              <TableCell>
+                <div className="text-center">
+                  <div className="text-text text-bold15">{job}</div>
+                </div>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data?.map((row, index) => (
               <TableRow
-                key={typeof row[0] === 'string' ? row[0] : String(row[0].value)}
+                key={row.toString()}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 {indexed && <TableCell>{index + 1 + ((page ?? 1) - 1) * pageSize}</TableCell>}
-                {row.map((item, rowIndex) =>
-                  typeof item === 'string' ? (
-                    <TableCell key={item}>
+
+                {Object.values(row).map((iteem: string, index) => {
+                  if (index === 0) return null
+                  return (
+                    <TableCell key={iteem}>
                       <div
                         className={cs('text-text text-regular15', {
-                          'text-left': rowIndex === headers.length - 1,
+                          'text-left': index === headers.length - 1,
                         })}
                       >
-                        {item}
+                        {iteem ? iteem : '-'}
                       </div>
                     </TableCell>
-                  ) : (
-                    <TableCell key={item.value}>{item.component}</TableCell>
-                  ),
-                )}
+                  )
+                })}
+
+                <TableCell>
+                  <div className="text-center">
+                    <KButton
+                      disabled={false}
+                      text={edit}
+                      size="small"
+                      typography="buttonSmall"
+                      width={70}
+                      onClick={() => {
+                        // eslint-disable-next-line no-unused-expressions
+                        getSelectedRow && getSelectedRow(data[index])
+                      }}
+                    />
+                  </div>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

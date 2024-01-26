@@ -16,6 +16,7 @@ interface KTableDefaultProps {
   data?: TableDataType
   indexed?: boolean
   className?: string
+  getSelectedRow?: (row: any) => void
 }
 
 interface PaginationTableProps {
