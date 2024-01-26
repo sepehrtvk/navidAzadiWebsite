@@ -26,3 +26,8 @@ export { default as ReceiptIcon } from './general/receipt.svg'
 export { default as CreditCardIcon } from './general/creditCard.svg'
 export { default as UploadCloudIcon } from './general/uploadCloud.svg'
 export { default as DeleteIcon } from './general/delete.svg'
+
+export { default as OnlineTimeIcon } from './panelAdmin/onlineTime.png'
+export { default as VisitTimeIcon } from './panelAdmin/visitTime.png'
+export { default as TrainingTimeIcon } from './panelAdmin/trainigTime.png'
+export { default as PlansIcon } from './panelAdmin/plans.png'
