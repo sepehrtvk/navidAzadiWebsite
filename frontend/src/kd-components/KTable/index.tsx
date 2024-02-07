@@ -55,7 +55,7 @@ function KTable({
                 <TableCell key={header}>
                   <div
                     className={cs('text-text text-bold15', {
-                      'text-left': index === headers.length - 1,
+                      // 'text-left': index === headers.length - 1,
                     })}
                   >
                     {header}
@@ -83,7 +83,7 @@ function KTable({
                     <TableCell key={iteem}>
                       <div
                         className={cs('text-text text-regular15', {
-                          'text-left': index === headers.length - 1,
+                          // 'text-left': index === headers.length - 1,
                         })}
                       >
                         {iteem ? iteem : '-'}

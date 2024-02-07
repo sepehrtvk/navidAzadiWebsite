@@ -13,7 +13,7 @@ export type TableDataType = TableRow[]
 
 interface KTableDefaultProps {
   headers: string[]
-  data?: TableDataType
+  data?: any
   indexed?: boolean
   className?: string
   getSelectedRow?: (row: any) => void

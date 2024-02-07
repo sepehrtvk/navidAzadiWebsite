@@ -17,6 +17,7 @@ dotenv.config({ path: "./config.env" });
 const userRouter = require("./routes/userRoutes");
 // const carRouter = require("./routes/carRoutes");
 const registeredPlanRouter = require("./routes/registeredPlanRoutes");
+const visitRouter = require("./routes/visitRoutes");
 
 // MIDDLEWARES
 if (process.env.NODE_ENV === "development") {
@@ -52,6 +53,7 @@ app.use(function (req, res, next) {
 // ROUTES
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/registeredPlans", registeredPlanRouter);
+app.use("/api/v1/visit", visitRouter);
 // app.use("/api/v1/cars", carRouter);
 
 mongoose.connect(

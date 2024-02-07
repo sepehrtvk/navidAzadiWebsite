@@ -7,6 +7,7 @@ import persian from 'react-date-object/calendars/persian'
 import highlightWeekends from 'react-multi-date-picker/plugins/highlight_weekends'
 import KDatePickerProps from './type'
 import './style.css'
+import TimePicker from 'react-multi-date-picker/plugins/time_picker'
 
 function KDatePicker({
   numberOfMonth = 1,
@@ -33,10 +34,10 @@ function KDatePicker({
       return onChange(null)
     }
     if (!Array.isArray(date)) {
-      date.setMillisecond(0)
-      date.setSecond(0)
-      date.setMinute(0)
-      date.setHour(0)
+      // date.setMillisecond(0)
+      // date.setSecond(0)
+      // date.setMinute(0)
+      // date.setHour(0)
       return onChange(date.valueOf())
     }
     return onChange(null)
@@ -45,6 +46,7 @@ function KDatePicker({
     <DatePicker
       render={renderComponent}
       arrow={false}
+      format="YYYY/MM/DD HH:mm"
       locale={persian_fa}
       calendar={persian}
       value={value}
@@ -54,7 +56,7 @@ function KDatePicker({
       numberOfMonths={numberOfMonth}
       multiple={type === 'multiDatePicker'}
       rangeHover={type === 'rangePicker'}
-      plugins={[highlightWeekends()]}
+      plugins={[highlightWeekends(), <TimePicker position="bottom" hideSeconds />]}
       maxDate={maxDate}
       minDate={minDate}
       range={type === 'rangePicker'}
