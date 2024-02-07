@@ -17,9 +17,13 @@ const registeredPlanSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  active: {
-    type: Boolean,
-    default: false,
+  status: {
+    type: String,
+    default: "PENDING",
+    enum: {
+      values: ["ACTIVE", "PENDING", "INACTIVE"],
+      message: "status must have a type of ACTIVE or INACTIVE OR PENDING.",
+    },
   },
   timeslot: {
     type: String,

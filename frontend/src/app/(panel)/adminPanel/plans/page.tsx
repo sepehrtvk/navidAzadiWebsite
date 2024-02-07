@@ -40,7 +40,7 @@ function PlansPage() {
         startDate: item.startDate ? epochToJalali(new Date(item.startDate).getTime()) : '---',
         endDate: item.endDate ? epochToJalali(new Date(item.endDate).getTime()) : '---',
         price: numberWithCommas(item.price),
-        status: item.active ? 'فعال' : 'غیرفعال',
+        status: item.status,
       }))
     },
   })

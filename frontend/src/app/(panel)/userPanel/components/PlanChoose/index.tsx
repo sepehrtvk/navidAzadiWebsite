@@ -61,7 +61,11 @@ function PlanChoose() {
   const [selectedPlan, setSelectedPlan] = useState<NewPlanDTO | null>(null)
   const profile = useStore(useProfileStore, store => store.profile)
 
-  const { loading: planLoading, data: registeredPlanData } = useApi<any>({
+  const {
+    loading: planLoading,
+    data: registeredPlanData,
+    fetch: getRegisteredPlans,
+  } = useApi<any>({
     url: POST_NEWPLAN_URL,
     callCondition: profile !== undefined,
     queryParams: { userId: profile?.userId },
@@ -74,6 +78,7 @@ function PlanChoose() {
     onSuccess: data => {
       enqueueSnackbar(data.status, { variant: 'error' })
       setIsModalVisible(false)
+      getRegisteredPlans()
     },
     onError: error => {
       if (error.data.status) {
@@ -89,7 +94,9 @@ function PlanChoose() {
       </div>
     )
 
-  if (registeredPlanData && !registeredPlanData.data.registeredPlan.active)
+  if (registeredPlanData && registeredPlanData.data.registeredPlan.status === 'ACTIVE') return null
+
+  if (registeredPlanData && registeredPlanData.data.registeredPlan.status === 'PENDING')
     return (
       <NotActivePlan
         type={registeredPlanData.data.registeredPlan.type}

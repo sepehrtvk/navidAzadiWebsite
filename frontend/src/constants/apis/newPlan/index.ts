@@ -5,7 +5,7 @@ export interface NewPlanDTO {
   type: string
   startDate?: Date
   endDate?: Date
-  active?: boolean
+  status?: string
   //   timeslot: '12month' | '6month'
   timeslot: string
   totalPlan?: 0 | 4 | 8

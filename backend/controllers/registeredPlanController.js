@@ -93,8 +93,8 @@ exports.updateRegisteredPlan = async (req, res) => {
             date.getMonth() + (req.query.timeslot == "6month" ? 6 : 12)
           )
         ),
-        active: true,
-        totalPlan: 0,
+        status: "ACTIVE",
+        totalPlan: req.query.timeslot == "6month" ? 4 : 8,
         receivedPlan: 0,
       }
     );
