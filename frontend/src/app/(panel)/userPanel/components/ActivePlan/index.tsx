@@ -1,9 +1,16 @@
 import staticTexts from '@constants/locale/fa'
+import useRegisteredPlanStore from '@store/registeredPlan'
+import useStore from '@store/storeManagement/useStore'
+import { epochToJalali } from '@utils/date'
 import React from 'react'
 
 function ActivePlan() {
   const { planActive, planType, startDate, endDate, planCount, receivedPlanCount } =
     staticTexts.userPanel.activePlan
+
+  const registeredPlan = useStore(useRegisteredPlanStore, store => store.registeredPlan)
+
+  if (!registeredPlan) return null
 
   return (
     <div className="px-4 py-3 rounded-xl w-full bg-background-surface mt-4">
@@ -14,24 +21,28 @@ function ActivePlan() {
       </div>
       <div className="mb-4">
         <span className="text-bold15">{planType}: </span>
-        <span className="text-medium15 text-text-dark">آنلاین۱</span>
+        <span className="text-medium15 text-text-dark">{registeredPlan.type}</span>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
           <span className="text-bold15">{startDate}: </span>
-          <span className="text-medium15 text-text-dark">{'14/5/1402'}</span>
+          <span className="text-medium15 text-text-dark">
+            {epochToJalali(new Date(registeredPlan.startDate))}
+          </span>
         </div>
         <div>
           <span className="text-bold15">{endDate}: </span>
-          <span className="text-medium15 text-text-dark">{'19/5/1402'}</span>
+          <span className="text-medium15 text-text-dark">
+            {epochToJalali(new Date(registeredPlan.endDate))}
+          </span>
         </div>
         <div>
           <span className="text-bold15">{planCount}: </span>
-          <span className="text-medium15 text-text-dark">8</span>
+          <span className="text-medium15 text-text-dark">{registeredPlan.totalPlan}</span>
         </div>
         <div>
           <span className="text-bold15">{receivedPlanCount}: </span>
-          <span className="text-medium15 text-text-dark">4</span>
+          <span className="text-medium15 text-text-dark">{registeredPlan.receivedPlan}</span>
         </div>
       </div>
     </div>

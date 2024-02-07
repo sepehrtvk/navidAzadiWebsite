@@ -12,6 +12,7 @@ import useStore from '@store/storeManagement/useStore'
 import useProfileStore from '@store/profile'
 import KSkeleton from '@components/KSkeleton'
 import NotActivePlan from '../NotActivePlan'
+import useRegisteredPlanStore from '@store/registeredPlan'
 
 const plansArray = [
   {
@@ -60,6 +61,7 @@ function PlanChoose() {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [selectedPlan, setSelectedPlan] = useState<NewPlanDTO | null>(null)
   const profile = useStore(useProfileStore, store => store.profile)
+  const setRegisteredPlan = useRegisteredPlanStore(store => store.setRegisteredPlan)
 
   const {
     loading: planLoading,
@@ -69,6 +71,10 @@ function PlanChoose() {
     url: POST_NEWPLAN_URL,
     callCondition: profile !== undefined,
     queryParams: { userId: profile?.userId },
+    onSuccess: data => {
+      const planInfo = data.data.registeredPlan
+      setRegisteredPlan(planInfo)
+    },
   })
 
   const { loading, fetch: submitNewPlan } = useApi<NewPlanDTO>({
