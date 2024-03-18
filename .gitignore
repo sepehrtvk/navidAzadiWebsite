@@ -33,3 +33,5 @@ dist
 .npmrc
 .gitmodules
 tsconfig.tsbuildinfo
+
+/backend/uploads
