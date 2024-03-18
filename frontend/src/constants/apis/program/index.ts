@@ -1,11 +1,11 @@
-export const POST_NEWPLAN_URL = '/registeredPlans'
+export const PROGRAM_URL = '/program'
 
-export interface NewPlanDTO {
-  id: string
+export interface ProgramDTO {
   //   type: 'online1' | 'online2' | 'visit'
+  _id: string
   type: string
-  startDate?: Date
-  endDate?: Date
+  startDate: Date
+  endDate: Date
   status?: string
   //   timeslot: '12month' | '6month'
   timeslot: string

@@ -1,5 +1,7 @@
 const RegisteredPlan = require("../models/registeredPlanModel");
 const User = require("../models/userModel");
+const Program = require("../models/programModel");
+const { divideDateRangeIntoSegments } = require("../utils/index");
 
 exports.getRegisteredPlanAll = async (req, res) => {
   try {
@@ -83,28 +85,56 @@ exports.createRegisteredPlan = async (req, res) => {
 
 exports.updateRegisteredPlan = async (req, res) => {
   const date = new Date();
+  const startDate = new Date();
+  const endDate = new Date(
+    date.setMonth(date.getMonth() + (req.query.timeslot == "6month" ? 6 : 12))
+  );
+
   try {
     const newRegisteredPlan = await RegisteredPlan.findByIdAndUpdate(
       { _id: req.query.id },
       {
-        startDate: new Date(),
-        endDate: new Date(
-          date.setMonth(
-            date.getMonth() + (req.query.timeslot == "6month" ? 6 : 12)
-          )
-        ),
+        startDate: startDate,
+        endDate: endDate,
         status: "ACTIVE",
         totalPlan: req.query.timeslot == "6month" ? 4 : 8,
         receivedPlan: 0,
       }
     );
 
-    res.status(200).json({
-      status: "success",
-      data: {
-        RegisteredPlan: newRegisteredPlan,
-      },
-    });
+    try {
+      const programsToInsert = [];
+
+      const timesForProgram = divideDateRangeIntoSegments(
+        startDate,
+        endDate,
+        req.query.timeslot == "6month" ? 4 : 8
+      );
+
+      timesForProgram.map((time) => {
+        const programTemp = {
+          type: newRegisteredPlan.type,
+          registeredPlanId: req.query.id,
+          startDate: time.start,
+          endDate: time.end,
+        };
+
+        programsToInsert.push(programTemp);
+      });
+
+      const insertedPrograms = await Program.insertMany(programsToInsert);
+
+      res.status(200).json({
+        status: "success",
+        data: {
+          RegisteredPlan: newRegisteredPlan,
+          insertedPrograms,
+        },
+      });
+    } catch (error) {
+      console.error("Error inserting programs:", error);
+      res.status(500).send(error.message);
+    }
   } catch (err) {
     res.status(404).json({
       status: "failed",

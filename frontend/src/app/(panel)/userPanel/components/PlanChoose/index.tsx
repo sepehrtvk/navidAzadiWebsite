@@ -73,6 +73,7 @@ function PlanChoose() {
     queryParams: { userId: profile?.userId },
     onSuccess: data => {
       const planInfo = data.data.registeredPlan
+      planInfo.id = planInfo['_id']
       setRegisteredPlan(planInfo)
     },
   })

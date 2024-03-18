@@ -9,8 +9,7 @@ function ActivePlan() {
     staticTexts.userPanel.activePlan
 
   const registeredPlan = useStore(useRegisteredPlanStore, store => store.registeredPlan)
-
-  if (!registeredPlan) return null
+  if (!registeredPlan || !registeredPlan.startDate) return null
 
   return (
     <div className="px-4 py-3 rounded-xl w-full bg-background-surface mt-4">

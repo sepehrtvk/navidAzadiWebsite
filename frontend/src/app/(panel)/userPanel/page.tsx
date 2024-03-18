@@ -15,8 +15,8 @@ const userPanelPage = () => {
       <PlanChoose />
       <ActivePlan />
       <Plans />
-      <GoogleMeetReserve />
-      <VisitReserveReserve />
+      {/* <GoogleMeetReserve />
+      <VisitReserveReserve /> */}
     </div>
   )
 }
