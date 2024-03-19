@@ -1,10 +1,16 @@
 'use client'
 
 import { KButton, KDialog, KInput, KStepper } from '@components'
+import useRegisteredPlanStore from '@store/registeredPlan'
+import useStore from '@store/storeManagement/useStore'
 import { CheckIcon } from '@svgs/icons'
 import { useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+const StepsOnline1 = ['تایید اطلاعات', 'اپلود عکس']
+const StepsOnline2 = ['تایید اطلاعات', 'انتخاب زمان گوگل میت', 'اپلود عکس']
+const StepsVisit = ['تایید اطلاعات', 'انتخاب زمان ویزیت']
 
 type ProgramPageProps = {
   searchParams: {
@@ -15,13 +21,27 @@ type ProgramPageProps = {
 function ProgramPage({ searchParams }: ProgramPageProps) {
   const ProgramId = searchParams.programId
   const [activeStep, setActiveStep] = useState<number>(0)
+  const [steps, setSteps] = useState<string[]>([])
 
   const [selectedFiles, setSelectedFiles] = useState([])
   const [previewUrls, setPreviewUrls] = useState([])
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const registeredPlan = useStore(useRegisteredPlanStore, store => store.registeredPlan)
+
   const router = useRouter()
 
-  const Steps = ['تایید اطلاعات', 'اپلود عکس']
+  useEffect(() => {
+    let stepsToShow: string[] = []
+    if (registeredPlan?.type === 'online1') {
+      stepsToShow = StepsOnline1
+    } else if (registeredPlan?.type === 'online2') {
+      stepsToShow = StepsOnline2
+    } else if (registeredPlan?.type === 'visit') {
+      stepsToShow = StepsVisit
+    }
+
+    setSteps(stepsToShow)
+  }, [registeredPlan])
 
   const handleFileChange = event => {
     setSelectedFiles(event.target.files)
@@ -127,7 +147,7 @@ function ProgramPage({ searchParams }: ProgramPageProps) {
       </div>
       <div className="mb-4 flex justify-center">
         <div className="w-[360px]">
-          <KStepper steps={Steps} activeStep={activeStep} />
+          <KStepper steps={steps} activeStep={activeStep} />
         </div>
       </div>
 
