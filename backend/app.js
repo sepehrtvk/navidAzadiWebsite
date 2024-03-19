@@ -37,6 +37,7 @@ const userRouter = require("./routes/userRoutes");
 // const carRouter = require("./routes/carRoutes");
 const registeredPlanRouter = require("./routes/registeredPlanRoutes");
 const visitRouter = require("./routes/visitRoutes");
+const onlineVisitRouter = require("./routes/onlineVisitRoutes");
 const programRouter = require("./routes/programRoutes");
 const Program = require("./models/programModel");
 const FileModel = require("./models/fileModel");
@@ -108,6 +109,7 @@ app.post("/upload", upload.array("photos", 5), async (req, res) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/registeredPlans", registeredPlanRouter);
 app.use("/api/v1/visit", visitRouter);
+app.use("/api/v1/onlineVisit", onlineVisitRouter);
 app.use("/api/v1/program", programRouter);
 // app.use("/api/v1/cars", carRouter);
 
