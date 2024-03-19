@@ -111,6 +111,7 @@ const staticTexts = {
       visit: 'ویزیت حضوری',
       online_visit: 'ویزیت آنلاین',
       training_: 'تمرین با مربی',
+      programs_: 'برنامه‌ها',
     },
   },
   footer: {

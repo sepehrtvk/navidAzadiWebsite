@@ -1,4 +1,6 @@
 export const PROGRAM_URL = '/program'
+export const ALL_PROGRAM_URL = '/program/all'
+export const PROGRAM_BY_ID_URL = '/program/id'
 
 export interface ProgramDTO {
   //   type: 'online1' | 'online2' | 'visit'

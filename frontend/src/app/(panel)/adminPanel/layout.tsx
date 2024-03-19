@@ -16,12 +16,13 @@ import { OnlineTimeIcon, PlansIcon, TrainingTimeIcon, VisitTimeIcon } from '@svg
 import {
   ONLINE_VISIT_DASHBOARD_ROUTE,
   PLANS_DASHBOARD_ROUTE,
+  PROGRAMS_DASHBOARD_ROUTE,
   TRAINING_DASHBOARD_ROUTE,
   VISIT_DASHBOARD_ROUTE,
 } from '@constants/routes'
 // import NavigationLoading from './components/NavigationLoading'
 
-const { plans, visit, online_visit, training_ } = staticTexts.adminPanel.menuItems
+const { plans, visit, online_visit, training_, programs_ } = staticTexts.adminPanel.menuItems
 const { title } = staticTexts.adminPanel
 
 const ALL_NAVIGATION_ITEMS: RouteListItemType[] = [
@@ -58,6 +59,20 @@ const ALL_NAVIGATION_ITEMS: RouteListItemType[] = [
   {
     label: training_,
     route: TRAINING_DASHBOARD_ROUTE,
+    icon: className => (
+      <Image
+        className={className}
+        width={45}
+        height={45}
+        src={TrainingTimeIcon}
+        alt="OnlineTimeIcon"
+      />
+    ),
+    id: '4',
+  },
+  {
+    label: programs_,
+    route: PROGRAMS_DASHBOARD_ROUTE,
     icon: className => (
       <Image
         className={className}

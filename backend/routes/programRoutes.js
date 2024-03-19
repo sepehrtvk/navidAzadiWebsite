@@ -9,4 +9,7 @@ router
   .get(programController.getProgram)
   .post(programController.createProgramAndOnlineVisit);
 
+router.route("/all").get(programController.getPendingPrograms);
+router.route("/id").get(programController.getPendingProgramsById);
+
 module.exports = router;
