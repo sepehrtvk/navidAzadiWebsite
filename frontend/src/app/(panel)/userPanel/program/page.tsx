@@ -1,9 +1,12 @@
 'use client'
 
-import { KButton, KDialog, KInput, KStepper } from '@components'
+import { KButton, KDialog, KInput, KSelect, KStepper } from '@components'
+import { POST_ONLINE_VISIT_TIME_URL } from '@constants/apis/onlineVisit'
+import { PROGRAM_URL } from '@constants/apis/program'
 import useRegisteredPlanStore from '@store/registeredPlan'
 import useStore from '@store/storeManagement/useStore'
 import { CheckIcon } from '@svgs/icons'
+import useApi from '@utils/api/useApi'
 import { useRouter } from 'next/navigation'
 import { enqueueSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
@@ -24,11 +27,41 @@ function ProgramPage({ searchParams }: ProgramPageProps) {
   const [steps, setSteps] = useState<string[]>([])
 
   const [selectedFiles, setSelectedFiles] = useState([])
+  const [selectedTime, setSelectedTime] = useState<any>('')
   const [previewUrls, setPreviewUrls] = useState([])
   const [isModalVisible, setIsModalVisible] = useState(false)
   const registeredPlan = useStore(useRegisteredPlanStore, store => store.registeredPlan)
 
   const router = useRouter()
+
+  const {
+    data: allVisits,
+    loading: allVisitsLoading,
+    fetch: getVisits,
+  } = useApi<any>({
+    url: POST_ONLINE_VISIT_TIME_URL,
+    dataFormatter: data => {
+      return data.data.onlineVisits.map(item => ({
+        value: item._id,
+        label: item.date ? new Date(item.date).toLocaleString('fa-IR') : '---',
+      }))
+    },
+  })
+
+  const { loading: addOnlineVisitTimeLoading, fetch: addOnlineVisitTime } = useApi<any>({
+    url: PROGRAM_URL,
+    lazy: true,
+    method: 'post',
+    onSuccess: data => {
+      enqueueSnackbar(data.status, { variant: 'error' })
+      router.replace(`/userPanel`)
+    },
+    onError: error => {
+      if (error.data.status) {
+        enqueueSnackbar(error.data.status, { variant: 'error' })
+      }
+    },
+  })
 
   useEffect(() => {
     let stepsToShow: string[] = []
@@ -83,9 +116,18 @@ function ProgramPage({ searchParams }: ProgramPageProps) {
   const renderStepOne = () => {
     return (
       <div>
-        <span>
-          شما در حال دریافت برنامه برای تاریخ --- هستید، جهت اپلود عکس به مرحله بعدی بروید
-        </span>
+        {registeredPlan?.type === 'online1' && (
+          <span>
+            شما در حال دریافت برنامه برای تاریخ --- هستید، جهت اپلود عکس به مرحله بعدی بروید
+          </span>
+        )}
+        {registeredPlan?.type === 'online2' && (
+          <span>
+            شما در حال دریافت برنامه برای تاریخ --- هستید، جهت انتخاب زمان تماس تصویری به مرحله بعدی
+            بروید
+          </span>
+        )}
+
         <div className="mt-4">
           <KButton
             text={'ادامه'}
@@ -103,39 +145,74 @@ function ProgramPage({ searchParams }: ProgramPageProps) {
   }
 
   const renderStepTwo = () => {
-    return (
-      <div>
-        <span>
-          در این مرحله باید ۵ عکس از زوایای مختلف از بدن خود گرفته و آنرا در اینجا اپلود نمایید
-        </span>
-        <form onSubmit={handleSubmit}>
-          <input type="file" multiple onChange={handleFileChange} />
-          {/* <KInput label={''} type="file" onChange={handleFileChange} /> */}
+    if (registeredPlan?.type === 'online1')
+      return (
+        <div>
+          <span>
+            در این مرحله باید ۵ عکس از زوایای مختلف از بدن خود گرفته و آنرا در اینجا اپلود نمایید
+          </span>
+          <form onSubmit={handleSubmit}>
+            <input type="file" multiple onChange={handleFileChange} />
+            {/* <KInput label={''} type="file" onChange={handleFileChange} /> */}
 
-          <div className="my-4">
-            {previewUrls.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt="Preview"
-                style={{ width: '100px', height: '100px' }}
+            <div className="my-4">
+              {previewUrls.map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt="Preview"
+                  style={{ width: '100px', height: '100px' }}
+                />
+              ))}
+            </div>
+            <div className="mt-4">
+              <KButton
+                disabled={selectedFiles.length === 0}
+                htmlType="submit"
+                text={'اپلود'}
+                size="small"
+                typography="buttonSmall"
+                width={128}
+                loading={false}
               />
-            ))}
-          </div>
+            </div>
+          </form>
+        </div>
+      )
+    if (registeredPlan?.type === 'online2')
+      return (
+        <div>
+          <span>لطفا تایم و تاریخ مورد نظر خود را انتخاب نمایید : </span>
+          <p className=" text-bold13  text-error mb-8">
+            توجه : پس از انتخاب تایم امکان تغییر آن وجود نخواهد داشت
+          </p>
+          <KSelect
+            value={selectedTime}
+            onChange={value => setSelectedTime(value)}
+            options={allVisits ?? []}
+            label={'تایم و تاریخ'}
+            width={300}
+            multiple={false}
+          />
           <div className="mt-4">
             <KButton
-              disabled={selectedFiles.length === 0}
-              htmlType="submit"
-              text={'اپلود'}
+              disabled={!selectedTime}
+              htmlType="button"
+              text={'ادامه'}
               size="small"
               typography="buttonSmall"
               width={128}
               loading={false}
+              onClick={() => {
+                addOnlineVisitTime({
+                  payload: { onlineVisitId: selectedTime },
+                  queryParams: { programId: ProgramId },
+                })
+              }}
             />
           </div>
-        </form>
-      </div>
-    )
+        </div>
+      )
   }
 
   return (

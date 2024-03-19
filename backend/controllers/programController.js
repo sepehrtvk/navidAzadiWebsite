@@ -28,3 +28,27 @@ exports.getProgram = async (req, res) => {
     });
   }
 };
+
+exports.createProgramAndOnlineVisit = async (req, res) => {
+  try {
+    const programToUpdate = await Program.findByIdAndUpdate(
+      { _id: req.query.programId },
+      {
+        status: "PENDING",
+        onlineVisitId: req.body.onlineVisitId,
+      }
+    );
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        program: programToUpdate,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: err,
+    });
+  }
+};
