@@ -8,7 +8,7 @@ import { PROGRAM_URL, ProgramDTO } from '@constants/apis/program'
 import { useEffect, useState } from 'react'
 import { epochToJalali } from '@utils/date'
 import { useRouter } from 'next/navigation'
-import { getQueryParams } from '@utils'
+import { getQueryParams, isCurrentDateBetween } from '@utils'
 import Lottie from 'lottie-react'
 import { PendingLottie } from '@animations'
 
@@ -82,7 +82,7 @@ function Plans() {
             className={cs(
               'flex flex-col gap-2 items-center rounded-xl p-4 border border-solid border-border-light',
               {
-                'bg-background-tint1': !item.startDate,
+                'bg-background-tint1': !isCurrentDateBetween(item.startDate, item.endDate),
               },
             )}
           >
@@ -109,15 +109,34 @@ function Plans() {
               <div className="mt-4">
                 <KButton
                   // href={'item.link'}
-                  disabled={!item.startDate}
+                  disabled={!isCurrentDateBetween(item.startDate, item.endDate)}
                   // htmlType="submit"
-                  text={'دریافت برنامه'}
+                  text={
+                    isCurrentDateBetween(item.startDate, item.endDate)
+                      ? 'دریافت برنامه'
+                      : 'هنوز فرا نرسیده'
+                  }
                   size="small"
                   typography="buttonSmall"
                   width={128}
                   loading={false}
                   onClick={() => {
                     router.push(`userPanel/program${getQueryParams({ programId: item['_id'] })}`)
+                  }}
+                />
+              </div>
+            )}
+            {item.status === 'RECEIVED' && (
+              <div className="mt-4">
+                <KButton
+                  text={'دانلود برنامه'}
+                  size="small"
+                  typography="buttonSmall"
+                  width={128}
+                  loading={false}
+                  onClick={() => {
+                    const url = 'http://localhost:5500/' + item.programPdf
+                    window.open(url, '_blank')
                   }}
                 />
               </div>

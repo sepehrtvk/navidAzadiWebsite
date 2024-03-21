@@ -1,8 +1,15 @@
+'use client'
+
+import { useState } from 'react'
+import Navbar from './components/Navbar'
+
 function IntroPage() {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="grow flex flex-col justify-center items-center gap-[72px]">
-      <h3>صفحه اینترو</h3>
-    </div>
+    <>
+      <Navbar />
+      <h3>dff</h3>
+    </>
   )
 }
 

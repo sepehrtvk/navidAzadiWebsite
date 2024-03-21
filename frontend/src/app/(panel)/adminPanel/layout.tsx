@@ -12,7 +12,7 @@ import { RouteListItemType } from './components/RouteList/type'
 import staticTexts from '@constants/locale/fa'
 import RouteList from './components/RouteList'
 import Image from 'next/image'
-import { OnlineTimeIcon, PlansIcon, TrainingTimeIcon, VisitTimeIcon } from '@svgs/icons'
+import { OnlineTimeIcon, PlanIcon, PlansIcon, TrainingTimeIcon, VisitTimeIcon } from '@svgs/icons'
 import {
   ONLINE_VISIT_DASHBOARD_ROUTE,
   PLANS_DASHBOARD_ROUTE,
@@ -74,13 +74,7 @@ const ALL_NAVIGATION_ITEMS: RouteListItemType[] = [
     label: programs_,
     route: PROGRAMS_DASHBOARD_ROUTE,
     icon: className => (
-      <Image
-        className={className}
-        width={45}
-        height={45}
-        src={TrainingTimeIcon}
-        alt="OnlineTimeIcon"
-      />
+      <Image className={className} width={45} height={45} src={PlanIcon} alt="PlanIcon" />
     ),
     id: '4',
   },

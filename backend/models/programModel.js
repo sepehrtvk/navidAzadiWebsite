@@ -42,6 +42,9 @@ const programSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  programPdf: {
+    type: String,
+  },
   onlineVisitId: {
     type: mongoose.Schema.ObjectId,
     ref: "Visit",

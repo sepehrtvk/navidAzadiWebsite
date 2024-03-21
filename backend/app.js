@@ -41,6 +41,7 @@ const onlineVisitRouter = require("./routes/onlineVisitRoutes");
 const programRouter = require("./routes/programRoutes");
 const Program = require("./models/programModel");
 const FileModel = require("./models/fileModel");
+const RegisteredPlan = require("./models/registeredPlanModel");
 
 // MIDDLEWARES
 if (process.env.NODE_ENV === "development") {
@@ -105,6 +106,37 @@ app.post("/upload", upload.array("photos", 5), async (req, res) => {
   }
 });
 
+app.post("/uploadpdf", upload.single("pdf"), async (req, res) => {
+  const programId = req.body.programId;
+
+  try {
+    // Access the uploaded file using `req.file`
+    const uploadedFile = {
+      filename: req.file.filename,
+      path: req.file.path,
+      program: programId,
+    };
+
+    // Insert the single file document into the database
+    const savedFile = await FileModel.create(uploadedFile);
+
+    const programTemp = await Program.findByIdAndUpdate(programId, {
+      programPdf: savedFile.path, // Save the path of the uploaded file
+      status: "RECEIVED",
+    });
+
+    const data = await RegisteredPlan.findByIdAndUpdate(
+      { _id: programTemp.registeredPlanId },
+      { $inc: { receivedPlan: 1 } },
+      { new: true }
+    );
+
+    res.send("PDF file uploaded and associated with user successfully");
+  } catch (error) {
+    console.error(error); // Log the error for debugging
+    res.sendStatus(500);
+  }
+});
 // ROUTES
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/registeredPlans", registeredPlanRouter);

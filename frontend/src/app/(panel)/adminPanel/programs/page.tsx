@@ -89,6 +89,9 @@ function ProgramsPage() {
             </div>
           ))}
       </div>
+      {allPrograms && allPrograms.length === 0 && (
+        <p className=" text-error text-bold15">هیچ برنامه ای برای نوشتن وجود ندارد!</p>
+      )}
     </div>
   )
 }
