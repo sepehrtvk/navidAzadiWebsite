@@ -53,8 +53,8 @@ function LoginPage() {
     console.log('Forgot Password')
   }
   return (
-    <div className="grow flex items-center justify-center">
-      <div className="w-[564px] rounded-xl bg-background-surface py-10 flex flex-col items-center">
+    <div className="grow flex items-center justify-center h-screen">
+      <div className="w-[564px] rounded-xl bg-background-tint1 py-10 flex flex-col items-center">
         <Image src="/images/Logo.png" width={185} height={185} alt="logo" />
         <div className="text-text text-h5">{alvand_system}</div>
         <div className="text-text text-medium15 mt-1">{kian_customer_panel}</div>

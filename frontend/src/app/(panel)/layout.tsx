@@ -3,9 +3,9 @@
 import { ReactNode, useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { KSnackbar } from 'src/kd-components'
-import Footer from './components/Footer'
 import Header from './components/Header'
 import SubHeader from './components/SubHeader'
+import Footer from './components/Footer'
 
 function PrintAssetsLayout({ children }: { children: ReactNode }) {
   // const pathname = usePathname()
