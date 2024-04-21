@@ -13,7 +13,7 @@ import { enqueueSnackbar } from 'notistack'
 import { useRouter } from 'next/navigation'
 import { ADMINPANEL_ROUTE, USERPANEL_ROUTE } from '@constants/routes'
 
-const { alvand_system, kian_customer_panel, forgot_password, login, password, user_name } =
+const { alvand_system, kian_customer_panel, forgot_password, login, password, user_name, signup } =
   staticTexts.login
 
 function LoginPage() {
@@ -44,7 +44,6 @@ function LoginPage() {
       password: Yup.string().required(),
     }),
     onSubmit: data => {
-      console.log(data)
       getLogin({ payload: data })
     },
   })
@@ -53,7 +52,7 @@ function LoginPage() {
     console.log('Forgot Password')
   }
   return (
-    <div className="grow flex items-center justify-center h-screen">
+    <div className="grow flex items-center justify-center h-screen bg-primary-darkest">
       <div className="w-[564px] rounded-xl bg-background-tint1 py-10 flex flex-col items-center">
         <Image src="/images/Logo.png" width={185} height={185} alt="logo" />
         <div className="text-text text-h5">{alvand_system}</div>
@@ -95,14 +94,25 @@ function LoginPage() {
               {forgot_password}
             </div>
           </div>
-          <KButton
-            disabled={!formik.isValid && formik.touched.phone && formik.touched.password}
-            htmlType="submit"
-            className="!mt-6"
-            text={login}
-            width={400}
-            loading={loginLoading}
-          />
+          <div className="flex flex-col items-center justify-between">
+            <KButton
+              disabled={!formik.isValid && formik.touched.phone && formik.touched.password}
+              htmlType="submit"
+              className="!mt-6"
+              text={login}
+              width={400}
+              loading={loginLoading}
+            />
+            <KButton
+              type="primary"
+              style="stroke"
+              className="!mt-4"
+              text={signup}
+              width={400}
+              disabled={loginLoading}
+              onClick={() => router.replace('/signup')}
+            />
+          </div>
         </form>
       </div>
     </div>

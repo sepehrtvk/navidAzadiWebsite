@@ -15,6 +15,7 @@ import { IdCardErrorSvg, KianDigitalLogoSvg } from '@svgs/illustrations'
 import { AddIcon, MultipleFileIcon } from '@svgs/icons'
 import useStore from '@store/storeManagement/useStore'
 import useOfficeStore from '@store/office'
+import useProfileStore from '@store/profile'
 
 const { title, subTitle, enter } = staticTexts.mainHeader
 
@@ -23,6 +24,8 @@ function Header() {
 
   const router = useRouter()
   const path = usePathname()
+
+  const Profile = useProfileStore(store => store.profile)
 
   return (
     <div className="sticky top-0 w-screen flex flex-col items-center bg-background-surface z-10">
@@ -35,20 +38,11 @@ function Header() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {false && (
+          {Profile && Profile.firstName && (
             <div className="px-3 h-10 flex items-center justify-center rounded-xl bg-background-tint1 text-text text-bold15">
-              {'username'}
+              <span>{Profile.firstName}</span>
+              <span className="mr-1">{Profile.lastName}</span>
             </div>
-          )}
-          {true && (
-            <KButton
-              text={enter}
-              type="secondary"
-              rightIcon={className => <AddIcon className={className} />}
-              onClick={() => {}}
-              size="small"
-              typography="buttonSmall"
-            />
           )}
         </div>
       </div>

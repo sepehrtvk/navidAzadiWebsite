@@ -24,6 +24,7 @@ const staticTexts = {
     password: 'کلمه عبور',
     forgot_password: 'رمز عبور خود را فراموش کرده‌اید؟',
     login: 'ورود',
+    signup: 'ثبت نام',
   },
   signup: {
     receiving_data: 'درحال دریافت اطلاعات',
@@ -37,6 +38,7 @@ const staticTexts = {
     first_name: 'نام',
     last_name: 'نام خانوادگی',
     signup: 'ثبت نام',
+    login: 'ورود',
   },
   mainHeader: {
     title: 'نوید آزادی',
