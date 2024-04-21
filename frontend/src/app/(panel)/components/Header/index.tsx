@@ -26,6 +26,7 @@ function Header() {
   const path = usePathname()
 
   const Profile = useProfileStore(store => store.profile)
+  const removeProfile = useProfileStore(store => store.clearProfile)
 
   return (
     <div className="sticky top-0 w-screen flex flex-col items-center bg-background-surface z-10">
@@ -44,6 +45,16 @@ function Header() {
               <span className="mr-1">{Profile.lastName}</span>
             </div>
           )}
+          <KButton
+            size="small"
+            typography="buttonSmall"
+            text="خروج"
+            type="error"
+            onClick={() => {
+              removeProfile()
+              router.replace('/login')
+            }}
+          />
         </div>
       </div>
     </div>

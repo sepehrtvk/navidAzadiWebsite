@@ -5,6 +5,7 @@ import { create } from '../storeManagement/index'
 interface ProfileStore {
   profile: LoginDto | null
   setProfile: (profile: LoginDto) => void
+  clearProfile: () => void
 }
 
 const useProfileStore = create<ProfileStore>()(
@@ -12,6 +13,9 @@ const useProfileStore = create<ProfileStore>()(
     set => ({
       profile: null,
       setProfile: profile => set({ profile }),
+      clearProfile: () => {
+        set({ profile: null })
+      },
     }),
     { name: 'KD_AP_PROFILE', storage: createJSONStorage(() => localStorage) },
   ),
