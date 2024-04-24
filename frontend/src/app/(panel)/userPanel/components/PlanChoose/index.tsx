@@ -76,6 +76,9 @@ function PlanChoose() {
       planInfo.id = planInfo['_id']
       setRegisteredPlan(planInfo)
     },
+    onError: error => {
+      // enqueueSnackbar(error.data.message, 'error')
+    },
   })
 
   const { loading, fetch: submitNewPlan } = useApi<NewPlanDTO>({

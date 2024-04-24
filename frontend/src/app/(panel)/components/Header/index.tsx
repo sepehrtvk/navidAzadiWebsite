@@ -16,6 +16,7 @@ import { AddIcon, MultipleFileIcon } from '@svgs/icons'
 import useStore from '@store/storeManagement/useStore'
 import useOfficeStore from '@store/office'
 import useProfileStore from '@store/profile'
+import useRegisteredPlanStore from '@store/registeredPlan'
 
 const { title, subTitle, enter } = staticTexts.mainHeader
 
@@ -27,6 +28,7 @@ function Header() {
 
   const Profile = useProfileStore(store => store.profile)
   const removeProfile = useProfileStore(store => store.clearProfile)
+  const removeRegisteredPlan = useRegisteredPlanStore(store => store.clearRegisteredPlan)
 
   return (
     <div className="sticky top-0 w-screen flex flex-col items-center bg-background-surface z-10">
@@ -52,7 +54,8 @@ function Header() {
             type="error"
             onClick={() => {
               removeProfile()
-              router.replace('/login')
+              removeRegisteredPlan()
+              router.replace('/')
             }}
           />
         </div>

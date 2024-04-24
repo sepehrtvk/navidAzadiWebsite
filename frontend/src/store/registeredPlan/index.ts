@@ -5,6 +5,7 @@ import { create } from '../storeManagement/index'
 interface RegisteredPlanStore {
   registeredPlan: NewPlanDTO | null
   setRegisteredPlan: (registeredPlan: NewPlanDTO) => void
+  clearRegisteredPlan: () => void
 }
 
 const useRegisteredPlanStore = create<RegisteredPlanStore>()(
@@ -12,6 +13,9 @@ const useRegisteredPlanStore = create<RegisteredPlanStore>()(
     set => ({
       registeredPlan: null,
       setRegisteredPlan: registeredPlan => set({ registeredPlan }),
+      clearRegisteredPlan: () => {
+        set({ registeredPlan: null })
+      },
     }),
     { name: 'registeredPlan', storage: createJSONStorage(() => localStorage) },
   ),

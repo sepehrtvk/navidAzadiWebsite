@@ -50,7 +50,7 @@ exports.getRegisteredPlan = async (req, res) => {
         },
       });
     else
-      res.status(404).json({
+      res.status(200).json({
         status: "success",
         data: {
           message: "user has no active plan",

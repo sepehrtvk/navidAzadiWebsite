@@ -9,6 +9,7 @@ function ActivePlan() {
     staticTexts.userPanel.activePlan
 
   const registeredPlan = useStore(useRegisteredPlanStore, store => store.registeredPlan)
+
   if (!registeredPlan || !registeredPlan.startDate) return null
 
   return (
